@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Love</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+        .heart {
+            position: absolute;
+            pointer-events: none;
+            animation: fall 5s linear infinite;
+        }
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+        .heart-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body class="bg-pink-100 min-h-screen flex flex-col items-center justify-center p-4">
+    <div id="proposal" class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden p-6 text-center">
+        <h1 class="text-4xl font-pacifico text-pink-600 mb-6">For My Love ❤️</h1>
+        <div class="couple-image w-full h-64 bg-cover bg-center mb-6 rounded-lg" 
+             style="background-image: url('https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80')"></div>
+        <div class="text-xl font-pacifico text-pink-500 mb-6">
+            <p>LIKE MITHAI LIKE MITHAI LIKE KULFI</p>
+            <p>RASMALAI HAI TU MERI PISTA BARFI</p>
+            <p>SARDIYAN VICH GARMIYA LAGTI</p>
+            <p>JAB TU MERE SATH CHALTI</p>
+        </div>
+        <div class="text-2xl font-pacifico text-red-500 mb-8">
+            <p>I love you my dearest love</p>
+            <p>Will you marry me?</p>
+        </div>
+        <div class="flex justify-center space-x-4">
+            <button id="yesBtn" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-full">
+                Yes! <i class="fas fa-heart ml-2"></i>
+            </button>
+            <button id="noBtn" class="bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-6 rounded-full">
+                No <i class="fas fa-heart-broken ml-2"></i>
+            </button>
+        </div>
+    </div>
+
+    <div id="yesResponse" class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden p-6 text-center hidden">
+        <h1 class="text-4xl font-pacifico text-pink-600 mb-6">I Love You! ❤️</h1>
+        <div class="couple-image w-full h-64 bg-cover bg-center mb-6 rounded-lg" 
+             style="background-image: url('https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80')"></div>
+        <div class="text-xl font-pacifico text-pink-500 mb-6">
+            <p>You've made me the happiest person!</p>
+            <p>Let's spend our lives together</p>
+        </div>
+        <button id="backBtn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full">
+            <i class="fas fa-arrow-left mr-2"></i> Back
+        </button>
+    </div>
+
+    <div id="noResponse" class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden p-6 text-center hidden">
+        <h1 class="text-4xl font-bold text-red-500 mb-6">HAPPY APRIL FOOL! 😂</h1>
+        <div class="text-6xl mb-6">🤣</div>
+        <p class="text-xl text-gray-700 mb-6">Just kidding! Click below to say YES!</p>
+        <button id="yesAnywayBtn" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-6 rounded-full">
+            Okay, I'll say YES! <i class="fas fa-heart ml-2"></i>
+        </button>
+    </div>
+
+    <script>
+        // Heart rain animation
+        function createHeartRain() {
+            const container = document.createElement('div');
+            container.id = 'heartRain';
+            container.className = 'heart-rain';
+            document.body.appendChild(container);
+
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.innerHTML = '❤️';
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                    heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    container.appendChild(heart);
+                }, i * 200);
+            }
+        }
+
+        // Button event handlers
+        document.getElementById('yesBtn').addEventListener('click', function() {
+            document.getElementById('proposal').classList.add('hidden');
+            document.getElementById('yesResponse').classList.remove('hidden');
+            createHeartRain();
+        });
+
+        document.getElementById('noBtn').addEventListener('click', function() {
+            document.getElementById('proposal').classList.add('hidden');
+            document.getElementById('noResponse').classList.remove('hidden');
+        });
+
+        document.getElementById('backBtn').addEventListener('click', function() {
+            document.getElementById('yesResponse').classList.add('hidden');
+            document.getElementById('proposal').classList.remove('hidden');
+            document.getElementById('heartRain')?.remove();
+        });
+
+        document.getElementById('yesAnywayBtn').addEventListener('click', function() {
+            document.getElementById('noResponse').classList.add('hidden');
+            document.getElementById('yesResponse').classList.remove('hidden');
+            createHeartRain();
+        });
+    </script>
+</body>
+</html>
