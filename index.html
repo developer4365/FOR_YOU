@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Love</title>
+    <title>For My Love - April Fool's Edition</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -27,9 +27,66 @@
             pointer-events: none;
             z-index: 100;
         }
+        /* April Fool's additions */
+        .fake-virus {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            color: lime;
+            font-family: monospace;
+            padding: 20px;
+            z-index: 1000;
+            display: none;
+            overflow: auto;
+        }
+        .cursor-chaser {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: red;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 999;
+        }
+        .impossible-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            z-index: 1001;
+            display: none;
+        }
     </style>
 </head>
 <body class="bg-pink-100 min-h-screen flex flex-col items-center justify-center p-4">
+    <!-- April Fool's Elements -->
+    <div id="fakeVirus" class="fake-virus">
+        <h1 class="text-2xl mb-4">SYSTEM COMPROMISED</h1>
+        <p>> Initializing virus.exe...</p>
+        <p>> Accessing personal files...</p>
+        <p>> Downloading all your data...</p>
+        <p class="text-red-500">WARNING: YOUR COMPUTER HAS BEEN HACKED</p>
+        <p>Just kidding! Happy April Fool's! 😂</p>
+        <button id="closeVirus" class="mt-4 bg-green-500 text-white px-4 py-2 rounded">Close This</button>
+    </div>
+
+    <div id="impossiblePopup" class="impossible-popup">
+        <h2 class="text-xl font-bold mb-2">IMPORTANT NOTICE</h2>
+        <p>Your computer has detected 127 viruses!</p>
+        <p>Click OK to remove them (this popup will never close)</p>
+        <div class="mt-4 flex justify-center">
+            <button id="fakeOkBtn" class="bg-red-500 text-white px-4 py-2 rounded">OK</button>
+        </div>
+    </div>
+
+    <!-- Original Content (slightly modified) -->
     <div id="proposal" class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden p-6 text-center">
         <h1 class="text-4xl font-pacifico text-pink-600 mb-6">For My Love ❤️</h1>
         <div class="couple-image w-full h-64 bg-cover bg-center mb-6 rounded-lg" 
@@ -77,7 +134,45 @@
     </div>
 
     <script>
-        // Heart rain animation
+        // April Fool's Prank Elements
+        function setupAprilFools() {
+            // Create cursor chaser
+            const chaser = document.createElement('div');
+            chaser.className = 'cursor-chaser';
+            document.body.appendChild(chaser);
+            
+            // Make it follow cursor
+            document.addEventListener('mousemove', (e) => {
+                chaser.style.left = (e.pageX - 15) + 'px';
+                chaser.style.top = (e.pageY - 15) + 'px';
+            });
+
+            // Show fake virus screen after delay
+            setTimeout(() => {
+                document.getElementById('fakeVirus').style.display = 'block';
+            }, 10000);
+
+            // Show impossible popup after another delay
+            setTimeout(() => {
+                document.getElementById('impossiblePopup').style.display = 'block';
+            }, 15000);
+
+            // Fake OK button that moves away
+            document.getElementById('fakeOkBtn').addEventListener('mouseover', function() {
+                const popup = document.getElementById('impossiblePopup');
+                const x = Math.random() * (window.innerWidth - 200);
+                const y = Math.random() * (window.innerHeight - 200);
+                popup.style.left = x + 'px';
+                popup.style.top = y + 'px';
+            });
+
+            // Close virus screen button
+            document.getElementById('closeVirus').addEventListener('click', function() {
+                document.getElementById('fakeVirus').style.display = 'none';
+            });
+        }
+
+        // Original functionality
         function createHeartRain() {
             const container = document.createElement('div');
             container.id = 'heartRain';
@@ -120,6 +215,9 @@
             document.getElementById('yesResponse').classList.remove('hidden');
             createHeartRain();
         });
+
+        // Initialize April Fool's pranks
+        setupAprilFools();
     </script>
 </body>
 </html>
